@@ -38,9 +38,10 @@ fun TicketCard(
             defaultElevation = 6.dp,
         ),
     ) {
-        Column(Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 8.dp)
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp),
         ) {
             Text(
                 modifier = Modifier
@@ -66,7 +67,7 @@ fun TicketCard(
                 ) {
                     Text(
                         modifier = Modifier
-                            //.padding(8.dp)
+                            // .padding(8.dp)
                             .align(Alignment.CenterHorizontally),
                         text = dueDate,
                         textAlign = TextAlign.Center,
@@ -75,7 +76,6 @@ fun TicketCard(
                         overflow = TextOverflow.Ellipsis,
                     )
                 }
-
             }
         }
     }

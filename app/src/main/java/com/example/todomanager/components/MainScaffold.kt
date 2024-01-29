@@ -19,14 +19,18 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import com.example.todomanager.State
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScaffold(
     mainTitle: String,
+    selectedState: State,
+    onSelect: (State) -> Unit,
     content: @Composable (PaddingValues) -> Unit,
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
@@ -42,23 +46,23 @@ fun MainScaffold(
         bottomBar = {
             NavigationBar {
                 NavigationBarItem(
-                    selected = false,
-                    onClick = { /*TODO*/ },
+                    selected = selectedState == State.BACKLOG,
+                    onClick = { onSelect(State.BACKLOG) },
                     icon = { Icon(Icons.Default.List, contentDescription = null) },
                 )
                 NavigationBarItem(
-                    selected = false,
-                    onClick = { /*TODO*/ },
+                    selected = selectedState == State.TODO,
+                    onClick = { onSelect(State.TODO) },
                     icon = { Icon(Icons.Default.Build, contentDescription = null) },
                 )
                 NavigationBarItem(
-                    selected = false,
-                    onClick = { /*TODO*/ },
+                    selected = selectedState == State.DOING,
+                    onClick = { onSelect(State.DOING) },
                     icon = { Icon(Icons.Default.PlayArrow, contentDescription = null) },
                 )
                 NavigationBarItem(
-                    selected = false,
-                    onClick = { /*TODO*/ },
+                    selected = selectedState == State.DONE,
+                    onClick = { onSelect(State.DONE) },
                     icon = { Icon(Icons.Default.Check, contentDescription = null) },
                 )
             }
@@ -66,4 +70,3 @@ fun MainScaffold(
         content = content,
     )
 }
-

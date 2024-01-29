@@ -1,0 +1,59 @@
+build:
+  maxIssues: 0
+
+naming:
+  FunctionNaming:
+    # Composable functions have uppercase names
+    ignoreAnnotated:
+      - Composable
+  ConstructorParameterNaming:
+    # DTOs use snake_case
+    ignoreAnnotated:
+      - JsonClass
+  EnumNaming:
+    # DTOs use snake_case
+    ignoreAnnotated:
+      - JsonClass
+
+complexity:
+  LongParameterList:
+    # Composables often have lots of args (with defaults)
+    functionThreshold: 10
+    ignoreDefaultParameters: true
+  LongMethod:
+    threshold: 85
+    ignoreAnnotated:
+      - Composable
+
+exceptions:
+  TooGenericExceptionCaught:
+    # Allow top level catch all handlers
+    active: false
+
+formatting:
+  MaximumLineLength:
+    # Use style rule instead
+    active: false
+  FinalNewline:
+    # This is just annoying
+    active: false
+  TrailingCommaOnCallSite:
+    active: true
+  TrailingCommaOnDeclarationSite:
+    active: true
+  EnumEntryNameCase:
+    # DTOs use snake_case, otherwise we use EnumNaming rule
+    active: false
+
+style:
+  MaxLineLength:
+    maxLineLength: 120
+  NewLineAtEndOfFile:
+    active: false
+  MagicNumber:
+    # This is fine, e.g. for accessing by index
+    active: false
+  UnusedPrivateMember:
+    # Keep composable previews
+    ignoreAnnotated:
+      - Preview
