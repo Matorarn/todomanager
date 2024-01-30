@@ -1,12 +1,13 @@
-package com.example.todomanager.data
+package com.example.todomanager.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.todomanager.data.LocalDateConverter
 
 @Database(
-    entities = [Ticket::class, Category::class],
-    version = 2,
+    entities = [TicketDTO::class, CategoryDTO::class],
+    version = 3,
     exportSchema = false,
 )
 @TypeConverters(

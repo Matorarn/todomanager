@@ -1,23 +1,53 @@
 package com.example.todomanager.data
 
+import com.example.todomanager.data.category.Category
+import com.example.todomanager.data.ticket.Ticket
+import com.example.todomanager.room.TicketDAO
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
-interface TicketRepository {
-    fun getBacklogTicketsStream(): Flow<List<Ticket>>
+class TicketRepository(
+    private val ticketDAO: TicketDAO,
+) {
+    fun getBacklogTicketsStream(): Flow<List<Ticket>> {
+        val backlogTickets = ticketDAO.getBacklogTickets()
+        return backlogTickets.toTicketFlow()
+    }
 
-    fun getToDoTicketsStream(): Flow<List<Ticket>>
+    fun getToDoTicketsStream(): Flow<List<Ticket>> {
+        val toDoTickets = ticketDAO.getToDoTickets()
+        return toDoTickets.toTicketFlow()
+    }
 
-    fun getDoingTicketsStream(): Flow<List<Ticket>>
+    fun getDoingTicketsStream(): Flow<List<Ticket>> {
+        val doingTickets = ticketDAO.getDoingTickets()
+        return doingTickets.toTicketFlow()
+    }
 
-    fun getDoneTicketsStream(): Flow<List<Ticket>>
+    fun getDoneTicketsStream(): Flow<List<Ticket>> {
+        val doneTickets = ticketDAO.getDoneTickets()
+        return doneTickets.toTicketFlow()
+    }
 
-    fun getTicketStream(id: Int): Flow<Ticket?>
+    fun getTicketStream(id: Int): Flow<Ticket?> {
+        val ticket = ticketDAO.getTicket(id)
+        return ticket.map { it.toEntity() }
+    }
 
-    fun getCategoriesStream(): Flow<List<Category?>>
+    fun getCategoriesStream(): Flow<List<Category?>> {
+        val categories = ticketDAO.getCategories()
+        return categories.map { list -> list.map { ticket -> ticket.toEntity() } }
+    }
 
-    suspend fun insertTicket(ticket: Ticket)
+    suspend fun insertTicket(ticket: Ticket) {
+        ticketDAO.insert(ticket.toDto())
+    }
 
-    suspend fun deleteTicket(ticket: Ticket)
+    suspend fun deleteTicket(ticket: Ticket) {
+        ticketDAO.delete(ticket.toDto())
+    }
 
-    suspend fun updateTicket(ticket: Ticket)
+    suspend fun updateTicket(ticket: Ticket) {
+        ticketDAO.update(ticket.toDto())
+    }
 }

@@ -1,6 +1,5 @@
-package com.example.todomanager.data
+package com.example.todomanager.room
 
-import androidx.annotation.ColorInt
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
@@ -10,31 +9,31 @@ import java.time.LocalDate
     tableName = "tickets",
     foreignKeys = [
         ForeignKey(
-            entity = Category::class,
+            entity = CategoryDTO::class,
             parentColumns = arrayOf("id"),
-            childColumns = arrayOf("category"),
-            onDelete = ForeignKey.CASCADE,
+            childColumns = arrayOf("categoryId"),
+            onDelete = ForeignKey.SET_NULL,
         ),
     ],
 )
-data class Ticket(
+data class TicketDTO(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val category: Int,
+    val categoryId: Int,
     val title: String,
     val content: String,
-    val currentRow: Row,
+    val currentRow: RowDTO,
     val dueDate: LocalDate? = null,
     val doneDate: LocalDate? = null,
 ) {
-    enum class Row { BACKLOG, TODO, DOING, DONE }
+    enum class RowDTO { BACKLOG, TODO, DOING, DONE }
 }
 
 @Entity(tableName = "categories")
-data class Category(
+data class CategoryDTO(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val title: String,
     val emoji: String,
-    @ColorInt val color: Int,
+    val color: String,
 )

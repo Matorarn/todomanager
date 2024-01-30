@@ -23,12 +23,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.todomanager.data.ticket.Ticket
+import com.example.todomanager.data.ticket.mockTicket
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TicketCard(
-    title: String,
-    dueDate: String,
+    ticket: Ticket,
 ) {
     ElevatedCard(
         modifier = Modifier
@@ -46,7 +47,7 @@ fun TicketCard(
             Text(
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally),
-                text = title,
+                text = ticket.title,
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.headlineLarge,
                 maxLines = 1,
@@ -59,6 +60,7 @@ fun TicketCard(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 CategoryIcon(Icons.Default.Call)
+                // TODO Add content tab/visibility
                 CategoryIcon(icon = Icons.Default.Menu)
                 Column(
                     modifier = Modifier.fillMaxWidth(),
@@ -69,7 +71,7 @@ fun TicketCard(
                         modifier = Modifier
                             // .padding(8.dp)
                             .align(Alignment.CenterHorizontally),
-                        text = dueDate,
+                        text = ticket.dueDate.toString(),
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.titleLarge,
                         maxLines = 1,
@@ -96,7 +98,6 @@ private fun CategoryIcon(
 @Composable
 private fun Preview() {
     TicketCard(
-        title = "Waschmittel einkaufen",
-        dueDate = "16.04.1999",
+        ticket = mockTicket,
     )
 }

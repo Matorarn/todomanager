@@ -2,11 +2,11 @@ package com.example.todomanager
 
 import android.app.Application
 import androidx.room.Room
-import com.example.todomanager.data.OfflineTicketsRepository
-import com.example.todomanager.data.TicketDAO
-import com.example.todomanager.data.TicketDatabase
 import com.example.todomanager.data.TicketRepository
-import com.example.todomanager.ui.TicketConfig.TicketConfigViewModel
+import com.example.todomanager.room.TicketDAO
+import com.example.todomanager.room.TicketDatabase
+import com.example.todomanager.ui.overview.OverviewViewModel
+import com.example.todomanager.ui.ticketconfig.TicketConfigViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
@@ -19,8 +19,8 @@ val appModule = module {
             .build()
     }
     single<TicketDAO> { get<TicketDatabase>().ticketDao() }
-    single<TicketRepository> { OfflineTicketsRepository(get()) }
-    viewModel<MainViewModel> { MainViewModel(get()) }
+    single<TicketRepository> { TicketRepository(get()) }
+    viewModel<OverviewViewModel> { OverviewViewModel(get()) }
     viewModel<TicketConfigViewModel> { TicketConfigViewModel(get()) }
 }
 

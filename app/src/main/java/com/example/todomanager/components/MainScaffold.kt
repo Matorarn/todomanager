@@ -2,12 +2,14 @@ package com.example.todomanager.components
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -19,7 +21,8 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import com.example.todomanager.State
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.todomanager.ui.overview.State
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -27,6 +30,7 @@ fun MainScaffold(
     mainTitle: String,
     selectedState: State,
     onSelect: (State) -> Unit,
+    onShowTicketConfig: () -> Unit,
     content: @Composable (PaddingValues) -> Unit,
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
@@ -67,6 +71,23 @@ fun MainScaffold(
                 )
             }
         },
+        floatingActionButton = {
+            FloatingActionButton(onClick = onShowTicketConfig) {
+                Icon(Icons.Default.Add, contentDescription = null)
+            }
+        },
         content = content,
+    )
+}
+
+@Preview
+@Composable
+private fun MainScaffoldPreview() {
+    MainScaffold(
+        mainTitle = "To Do",
+        selectedState = State.TODO,
+        onSelect = {},
+        onShowTicketConfig = {},
+        content = {},
     )
 }

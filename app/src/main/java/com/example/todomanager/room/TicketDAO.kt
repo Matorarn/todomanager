@@ -1,4 +1,4 @@
-package com.example.todomanager.data
+package com.example.todomanager.room
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -11,29 +11,29 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface TicketDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(ticket: Ticket)
+    suspend fun insert(ticket: TicketDTO)
 
     @Update
-    suspend fun update(ticket: Ticket)
+    suspend fun update(ticket: TicketDTO)
 
     @Delete
-    suspend fun delete(ticket: Ticket)
+    suspend fun delete(ticket: TicketDTO)
 
     @Query("SELECT * from tickets WHERE id = :id")
-    fun getTicket(id: Int): Flow<Ticket>
+    fun getTicket(id: Int): Flow<TicketDTO>
 
     @Query("SELECT * from categories")
-    fun getCategories(): Flow<List<Category>>
+    fun getCategories(): Flow<List<CategoryDTO>>
 
     @Query("SELECT * FROM tickets WHERE currentRow = 'Backlog' ORDER BY title ASC")
-    fun getBacklogTickets(): Flow<List<Ticket>>
+    fun getBacklogTickets(): Flow<List<TicketDTO>>
 
     @Query("SELECT * FROM tickets WHERE currentRow = 'ToDo' ORDER BY title ASC")
-    fun getToDoTickets(): Flow<List<Ticket>>
+    fun getToDoTickets(): Flow<List<TicketDTO>>
 
     @Query("SELECT * FROM tickets WHERE currentRow = 'Doing' ORDER BY title ASC")
-    fun getDoingTickets(): Flow<List<Ticket>>
+    fun getDoingTickets(): Flow<List<TicketDTO>>
 
     @Query("SELECT * FROM tickets WHERE currentRow = 'Done' ORDER BY title ASC")
-    fun getDoneTickets(): Flow<List<Ticket>>
+    fun getDoneTickets(): Flow<List<TicketDTO>>
 }
