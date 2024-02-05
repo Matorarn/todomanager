@@ -1,5 +1,6 @@
 package com.example.todomanager.ui.ticketconfig.configelements
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -8,10 +9,12 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,9 +33,25 @@ fun CategorySwitch(
     selectedCategory: Category?,
     onClick: (Category) -> Unit,
 ) {
-    Column {
-        Text(text = "Kategorie")
-        Row(modifier = Modifier.horizontalScroll(rememberScrollState())) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(
+                color = MaterialTheme.colorScheme.onBackground,
+                shape = MaterialTheme.shapes.small,
+            )
+            .padding(8.dp),
+    ) {
+        Text(
+            modifier = Modifier.padding(),
+            text = "Kategorie",
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Row(
+            modifier = Modifier
+                .horizontalScroll(rememberScrollState()),
+        ) {
+            //TODO Add category configuration feature
             categoryList.forEachIndexed { index, category ->
                 if (category != null) {
                     CategoryItem(
@@ -52,27 +71,29 @@ private fun CategoryItem(
     isSelected: Boolean,
     onClick: () -> Unit,
 ) {
-    Row {
+    Row(
+        modifier = Modifier
+            .padding(horizontal = 2.dp)
+            .border(
+                border = BorderStroke(
+                    width = Dp.Hairline,
+                    color = Color.Black,
+                ),
+                shape = RoundedCornerShape(16.dp),
+            )
+            // TODO Implement custom colors for categories
+            .background(
+                color = if (isSelected) Color.LightGray else MaterialTheme.colorScheme.secondaryContainer,
+                shape = RoundedCornerShape(16.dp),
+            )
+            .padding(8.dp)
+            .clickable(onClick = onClick)
+            .animateContentSize(),
+    ) {
         Text(text = category.emoji)
         if (isSelected) {
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                modifier = Modifier
-                    .background(
-                        color = Color(category.color),
-                        shape = CircleShape,
-                    )
-                    .border(
-                        border = BorderStroke(
-                            Dp.Hairline,
-                            color = MaterialTheme.colorScheme.outline,
-                        ),
-                        shape = CircleShape,
-                    )
-                    .size(16.dp)
-                    .clickable(onClick = onClick),
-                text = category.title,
-            )
+            Spacer(modifier = Modifier.width(4.dp))
+            Text(text = category.title)
         }
     }
 }
