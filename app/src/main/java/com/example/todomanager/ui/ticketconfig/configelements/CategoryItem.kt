@@ -51,7 +51,7 @@ fun CategorySwitch(
             modifier = Modifier
                 .horizontalScroll(rememberScrollState()),
         ) {
-            //TODO Add category configuration feature
+            // TODO Add category configuration feature
             categoryList.forEachIndexed { index, category ->
                 if (category != null) {
                     CategoryItem(

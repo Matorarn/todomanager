@@ -20,16 +20,17 @@ import com.example.todomanager.data.category.mockCategories
 import com.example.todomanager.data.ticket.Ticket
 import com.example.todomanager.ui.ticketconfig.configelements.CategorySwitch
 import com.example.todomanager.ui.ticketconfig.configelements.ContentTextField
-import com.example.todomanager.ui.ticketconfig.configelements.DueDatePicker
-import com.example.todomanager.ui.ticketconfig.configelements.RowPicker
 import com.example.todomanager.ui.ticketconfig.configelements.TitleTextField
+import com.example.todomanager.ui.ticketconfig.configelements.picker.DueDatePickerDialog
+import com.example.todomanager.ui.ticketconfig.configelements.picker.DueDatePickerTextField
+import com.example.todomanager.ui.ticketconfig.configelements.picker.RowPicker
+import java.time.LocalDate
 
 @Composable
 fun TicketConfigScreen(
     uiState: TicketConfigState,
     onQuit: () -> Unit,
     onSave: (ticket: Ticket) -> Unit,
-
 ) {
     var title by rememberSaveable { mutableStateOf("") }
     var content by rememberSaveable { mutableStateOf("") }
@@ -43,8 +44,15 @@ fun TicketConfigScreen(
             ),
         )
     }
-    var dueDate by rememberSaveable { mutableStateOf("") }
+    var dueDate: LocalDate? by rememberSaveable { mutableStateOf(null) }
     var currentRow by rememberSaveable { mutableStateOf("") }
+
+    var showDueDatePicker by remember { mutableStateOf(false) }
+    DueDatePickerDialog(
+        onDueDateSelect = { dueDate = it },
+        onShow = showDueDatePicker,
+        onDismiss = { showDueDatePicker = false },
+    )
 
     Column(
         modifier = Modifier
@@ -63,9 +71,10 @@ fun TicketConfigScreen(
             categoryList = uiState.categoryList,
             selectedCategory = category,
         ) { category = it }
-        DueDatePicker(
+        DueDatePickerTextField(
             dueDate = dueDate,
-            onDueDateChange = { dueDate = it },
+            onShowDatePickerDialog = { showDueDatePicker = true },
+            onDeleteDueDateValue = { dueDate = null }
         )
         RowPicker(
             row = currentRow,
@@ -80,7 +89,7 @@ fun TicketConfigScreen(
                         content = content,
                         categoryId = category.id,
                         currentRow = Ticket.Row.DOING,
-                        dueDate = null,
+                        dueDate = dueDate,
                         doneDate = null,
                     ),
                 )
