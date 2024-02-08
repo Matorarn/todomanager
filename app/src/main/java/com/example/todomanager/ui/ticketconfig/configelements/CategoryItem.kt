@@ -38,7 +38,7 @@ fun CategorySwitch(
             .fillMaxWidth()
             .background(
                 color = MaterialTheme.colorScheme.onBackground,
-                shape = MaterialTheme.shapes.small,
+                shape = RoundedCornerShape(16.dp),
             )
             .padding(8.dp),
     ) {

@@ -3,6 +3,7 @@ package com.example.todomanager.ui.ticketconfig
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -24,6 +25,7 @@ import com.example.todomanager.ui.ticketconfig.configelements.TitleTextField
 import com.example.todomanager.ui.ticketconfig.configelements.picker.DueDatePickerDialog
 import com.example.todomanager.ui.ticketconfig.configelements.picker.DueDatePickerTextField
 import com.example.todomanager.ui.ticketconfig.configelements.picker.RowPicker
+import com.example.todomanager.ui.ticketconfig.configelements.picker.RowPickerDialog
 import java.time.LocalDate
 
 @Composable
@@ -45,7 +47,16 @@ fun TicketConfigScreen(
         )
     }
     var dueDate: LocalDate? by rememberSaveable { mutableStateOf(null) }
-    var currentRow by rememberSaveable { mutableStateOf("") }
+    var currentRow by rememberSaveable { mutableStateOf(Ticket.Row.BACKLOG) }
+
+    var showRowPickerDialog by remember { mutableStateOf(false) }
+    if (showRowPickerDialog) {
+        RowPickerDialog(
+            selectedRow = currentRow,
+            onSelectRow = { currentRow = it },
+            onDismiss = { showRowPickerDialog = false },
+        )
+    }
 
     var showDueDatePicker by remember { mutableStateOf(false) }
     DueDatePickerDialog(
@@ -74,13 +85,13 @@ fun TicketConfigScreen(
         DueDatePickerTextField(
             dueDate = dueDate,
             onShowDatePickerDialog = { showDueDatePicker = true },
-            onDeleteDueDateValue = { dueDate = null }
+            onDeleteDueDateValue = { dueDate = null },
         )
         RowPicker(
             row = currentRow,
-            onRowChange = { currentRow = it },
+            onShowRowPickerDialog = { showRowPickerDialog = true },
         )
-        TextButton(
+        Button(
             onClick = {
                 // TODO Check if all inputs are viable
                 onSave(
@@ -88,7 +99,7 @@ fun TicketConfigScreen(
                         title = title,
                         content = content,
                         categoryId = category.id,
-                        currentRow = Ticket.Row.DOING,
+                        currentRow = currentRow,
                         dueDate = dueDate,
                         doneDate = null,
                     ),
@@ -97,7 +108,7 @@ fun TicketConfigScreen(
         ) {
             Text(text = "Eingaben speichern")
         }
-        TextButton(onClick = onQuit) {
+        Button(onClick = onQuit) {
             Text(text = "Abbrechen")
         }
     }
