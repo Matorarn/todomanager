@@ -28,15 +28,15 @@ interface TicketDAO {
     @Insert
     suspend fun insertCategory(category: CategoryDTO)
 
-    @Query("SELECT * FROM tickets WHERE currentRow = 'Backlog' ORDER BY title ASC")
+    @Query("SELECT * FROM tickets WHERE currentRow = 'BACKLOG' ORDER BY title ASC")
     fun getBacklogTickets(): Flow<List<TicketDTO>>
 
-    @Query("SELECT * FROM tickets WHERE currentRow = 'ToDo' ORDER BY title ASC")
+    @Query("SELECT * FROM tickets WHERE currentRow = 'TODO' ORDER BY title ASC")
     fun getToDoTickets(): Flow<List<TicketDTO>>
 
-    @Query("SELECT * FROM tickets WHERE currentRow = 'Doing' ORDER BY title ASC")
+    @Query("SELECT * FROM tickets WHERE currentRow = 'DOING' ORDER BY title ASC")
     fun getDoingTickets(): Flow<List<TicketDTO>>
 
-    @Query("SELECT * FROM tickets WHERE currentRow = 'Done' ORDER BY title ASC")
+    @Query("SELECT * FROM tickets WHERE currentRow = 'DONE' ORDER BY title ASC")
     fun getDoneTickets(): Flow<List<TicketDTO>>
 }
