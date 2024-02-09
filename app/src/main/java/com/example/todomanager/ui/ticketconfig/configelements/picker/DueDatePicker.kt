@@ -12,22 +12,15 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material3.Button
-import androidx.compose.material3.DatePicker
-import androidx.compose.material3.DatePickerDialog
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import java.time.Instant
 import java.time.LocalDate
-import java.time.ZoneId
 
 @Composable
 fun DueDatePickerTextField(
@@ -55,6 +48,7 @@ fun DueDatePickerTextField(
         ) {
             Icon(imageVector = Icons.Default.DateRange, contentDescription = null)
             Spacer(modifier = Modifier.width(8.dp))
+            // TODO Add Date Formatter
             Text(text = dueDate.toString())
             Spacer(modifier = Modifier.weight(1f))
             Icon(
@@ -64,45 +58,6 @@ fun DueDatePickerTextField(
             )
         }
     }
-    // TODO Add Date Formatter
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun DueDatePickerDialog(
-    onDueDateSelect: (LocalDate?) -> Unit,
-    onShow: Boolean,
-    onDismiss: () -> Unit,
-) {
-    val datePickerState = rememberDatePickerState()
-    val dueDate = datePickerState.selectedDateMillis?.let { convertMillisToDate(it) }
-
-    if (onShow) {
-        DatePickerDialog(
-            onDismissRequest = onDismiss,
-            confirmButton = {
-                Button(onClick = {
-                    onDueDateSelect(dueDate)
-                    onDismiss()
-                }) {
-                    Text(text = "Speichern")
-                }
-            },
-            dismissButton = {
-                Button(
-                    onClick = { onDismiss() },
-                ) {
-                    Text(text = "Abbrechen")
-                }
-            },
-        ) {
-            DatePicker(state = datePickerState)
-        }
-    }
-}
-
-private fun convertMillisToDate(millis: Long): LocalDate {
-    return Instant.ofEpochMilli(millis).atZone(ZoneId.systemDefault()).toLocalDate()
 }
 
 @Preview
@@ -112,15 +67,5 @@ private fun DueDatePickerLabelPreview() {
         dueDate = LocalDate.now(),
         onShowDatePickerDialog = {},
         onDeleteDueDateValue = {},
-    )
-}
-
-@Preview
-@Composable
-private fun DueDatePickerPreview() {
-    DueDatePickerDialog(
-        onDueDateSelect = {},
-        onShow = true,
-        onDismiss = {},
     )
 }

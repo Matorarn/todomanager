@@ -1,4 +1,4 @@
-package com.example.todomanager.components
+package com.example.todomanager.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

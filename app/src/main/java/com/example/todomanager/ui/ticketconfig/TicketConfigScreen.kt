@@ -18,14 +18,14 @@ import com.example.todomanager.data.category.Category
 import com.example.todomanager.data.category.CategoryColors
 import com.example.todomanager.data.category.mockCategories
 import com.example.todomanager.data.ticket.Ticket
-import com.example.todomanager.ui.ticketconfig.configelements.CategorySwitch
-import com.example.todomanager.ui.ticketconfig.configelements.ContentTextField
-import com.example.todomanager.ui.ticketconfig.configelements.TitleTextField
-import com.example.todomanager.ui.ticketconfig.configelements.dialogs.AddCategoryDialog
-import com.example.todomanager.ui.ticketconfig.configelements.picker.DueDatePickerDialog
+import com.example.todomanager.ui.ticketconfig.configelements.category.CategorySwitch
+import com.example.todomanager.ui.ticketconfig.configelements.dialogs.addcategory.AddCategoryDialog
+import com.example.todomanager.ui.ticketconfig.configelements.dialogs.duedate.DueDatePickerDialog
+import com.example.todomanager.ui.ticketconfig.configelements.dialogs.row.RowPickerDialog
 import com.example.todomanager.ui.ticketconfig.configelements.picker.DueDatePickerTextField
 import com.example.todomanager.ui.ticketconfig.configelements.picker.RowPicker
-import com.example.todomanager.ui.ticketconfig.configelements.picker.RowPickerDialog
+import com.example.todomanager.ui.ticketconfig.configelements.textfields.ContentTextField
+import com.example.todomanager.ui.ticketconfig.configelements.textfields.TitleTextField
 import java.time.LocalDate
 
 @Composable
@@ -115,6 +115,7 @@ fun TicketConfigScreen(
                         doneDate = null,
                     ),
                 )
+                onQuit()
             },
         ) {
             Text(text = "Eingaben speichern")
