@@ -32,7 +32,7 @@ fun CategorySwitch(
         modifier = Modifier
             .fillMaxWidth()
             .background(
-                color = MaterialTheme.colorScheme.onBackground,
+                color = MaterialTheme.colorScheme.secondary,
                 shape = RoundedCornerShape(16.dp),
             )
             .padding(8.dp),
@@ -40,8 +40,11 @@ fun CategorySwitch(
         Text(
             modifier = Modifier.padding(),
             text = "Kategorie",
+            color = MaterialTheme.colorScheme.onSecondary,
+            style = MaterialTheme.typography.titleMedium,
         )
         Spacer(modifier = Modifier.height(8.dp))
+        // TODO Check if overflow, when scrolling, is correctly displayed
         Row(
             modifier = Modifier
                 .horizontalScroll(rememberScrollState()),
@@ -51,12 +54,15 @@ fun CategorySwitch(
                     CategoryItem(
                         category = category,
                         isSelected = selectedCategory == categoryList[index],
+                        // TODO Is Index really needed? Is it possible to just use the lambda?
                         onClick = { categoryList[index]?.let { onSelectCategory(it) } },
                     )
                 }
             }
-            // TODO Fix ui
-            Spacer(Modifier.width(16.dp))
+            if (categoryList.isNotEmpty()) {
+                Spacer(Modifier.width(16.dp))
+            }
+            // TODO Replace AddButton
             CategoryItem(
                 category = Category(
                     title = "",
@@ -75,6 +81,28 @@ fun CategorySwitch(
 private fun CategorySwitchPreview() {
     CategorySwitch(
         categoryList = mockCategories,
+        selectedCategory = null,
+        onSelectCategory = {},
+        showAddCategoryDialog = {},
+    )
+}
+
+@Preview
+@Composable
+private fun CategorySwitchSelectedPreview() {
+    CategorySwitch(
+        categoryList = mockCategories,
+        selectedCategory = mockCategories[0],
+        onSelectCategory = {},
+        showAddCategoryDialog = {},
+    )
+}
+
+@Preview
+@Composable
+private fun CategorySwitchEmptyPreview() {
+    CategorySwitch(
+        categoryList = emptyList(),
         selectedCategory = null,
         onSelectCategory = {},
         showAddCategoryDialog = {},
