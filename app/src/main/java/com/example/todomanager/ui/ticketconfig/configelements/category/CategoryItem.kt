@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -32,19 +33,20 @@ fun CategoryItem(
     Row(
         modifier = Modifier
             .padding(horizontal = 2.dp)
-            .border(
-                border = BorderStroke(
-                    width = Dp.Hairline,
-                    color = Color.Black,
-                ),
-                shape = RoundedCornerShape(16.dp),
-            )
+            .clip(if (isSelected) RoundedCornerShape(16.dp) else CircleShape)
+            .clickable(onClick = onClick)
             .background(
                 color = Color(category.color.hexValue.toColorInt()),
                 shape = if (isSelected) RoundedCornerShape(16.dp) else CircleShape,
             )
+            .border(
+                border = BorderStroke(
+                    width = if (isSelected) 2.dp else Dp.Hairline,
+                    color = Color.Black,
+                ),
+                shape = if (isSelected) RoundedCornerShape(16.dp) else CircleShape,
+            )
             .padding(8.dp)
-            .clickable(onClick = onClick)
             .animateContentSize(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -59,6 +61,16 @@ fun CategoryItem(
 @Preview
 @Composable
 private fun CategoryItemPreview() {
+    CategoryItem(
+        category = mockCategory,
+        isSelected = false,
+        onClick = {},
+    )
+}
+
+@Preview
+@Composable
+private fun CategoryItemSelectedPreview() {
     CategoryItem(
         category = mockCategory,
         isSelected = true,
