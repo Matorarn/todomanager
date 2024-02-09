@@ -38,7 +38,6 @@ fun CategorySwitch(
             .padding(8.dp),
     ) {
         Text(
-            modifier = Modifier.padding(),
             text = "Kategorie",
             color = MaterialTheme.colorScheme.onSecondary,
             style = MaterialTheme.typography.titleMedium,
