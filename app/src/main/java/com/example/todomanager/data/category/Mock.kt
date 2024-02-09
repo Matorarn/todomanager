@@ -1,37 +1,35 @@
 package com.example.todomanager.data.category
 
-import androidx.compose.ui.graphics.Color
-
 val mockCategory = Category(
     title = "Privat",
     emoji = "\uD83D\uDECD\uFE0F",
-    color = Color.Cyan.value.toInt(),
+    color = CategoryColors.RED,
 )
 
 val mockCategories = listOf<Category>(
     Category(
         title = "Privat",
         emoji = "\uD83D\uDECD\uFE0F",
-        color = Color.Cyan.value.toInt(),
+        color = CategoryColors.BLUE,
     ),
     Category(
         title = "Urlaub",
         emoji = "\uD83D\uDECD\uFE0F",
-        color = Color.LightGray.value.toInt(),
+        color = CategoryColors.LIGHTBLUE,
     ),
     Category(
         title = "Arbeit",
         emoji = "\uD83D\uDECD\uFE0F",
-        color = Color.Gray.value.toInt(),
+        color = CategoryColors.PINK,
     ),
     Category(
         title = "Wohnung",
         emoji = "\uD83D\uDECD\uFE0F",
-        color = Color.Blue.value.toInt(),
+        color = CategoryColors.GREEN,
     ),
     Category(
         title = "Freunde",
         emoji = "\uD83D\uDECD\uFE0F",
-        color = Color.Magenta.value.toInt(),
+        color = CategoryColors.TURQUOISE,
     ),
 )

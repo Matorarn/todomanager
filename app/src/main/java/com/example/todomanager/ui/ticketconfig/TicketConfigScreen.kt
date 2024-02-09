@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -13,15 +12,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.todomanager.data.category.Category
+import com.example.todomanager.data.category.CategoryColors
 import com.example.todomanager.data.category.mockCategories
 import com.example.todomanager.data.ticket.Ticket
 import com.example.todomanager.ui.ticketconfig.configelements.CategorySwitch
 import com.example.todomanager.ui.ticketconfig.configelements.ContentTextField
 import com.example.todomanager.ui.ticketconfig.configelements.TitleTextField
+import com.example.todomanager.ui.ticketconfig.configelements.dialogs.AddCategoryDialog
 import com.example.todomanager.ui.ticketconfig.configelements.picker.DueDatePickerDialog
 import com.example.todomanager.ui.ticketconfig.configelements.picker.DueDatePickerTextField
 import com.example.todomanager.ui.ticketconfig.configelements.picker.RowPicker
@@ -32,7 +32,8 @@ import java.time.LocalDate
 fun TicketConfigScreen(
     uiState: TicketConfigState,
     onQuit: () -> Unit,
-    onSave: (ticket: Ticket) -> Unit,
+    onSaveTicket: (Ticket) -> Unit,
+    onSaveCategory: (Category) -> Unit,
 ) {
     var title by rememberSaveable { mutableStateOf("") }
     var content by rememberSaveable { mutableStateOf("") }
@@ -42,7 +43,7 @@ fun TicketConfigScreen(
                 id = 0,
                 title = "",
                 emoji = "",
-                color = Color.Cyan.value.toInt(),
+                color = CategoryColors.RED,
             ),
         )
     }
@@ -65,6 +66,14 @@ fun TicketConfigScreen(
         onDismiss = { showDueDatePicker = false },
     )
 
+    var showAddCategoryDialog by remember { mutableStateOf(false) }
+    if (showAddCategoryDialog) {
+        AddCategoryDialog(
+            onSave = onSaveCategory,
+            onDismiss = { showAddCategoryDialog = false },
+        )
+    }
+
     Column(
         modifier = Modifier
             .padding(horizontal = 8.dp, vertical = 16.dp),
@@ -81,7 +90,9 @@ fun TicketConfigScreen(
         CategorySwitch(
             categoryList = uiState.categoryList,
             selectedCategory = category,
-        ) { category = it }
+            onSelectCategory = { category = it },
+            showAddCategoryDialog = { showAddCategoryDialog = true },
+        )
         DueDatePickerTextField(
             dueDate = dueDate,
             onShowDatePickerDialog = { showDueDatePicker = true },
@@ -94,7 +105,7 @@ fun TicketConfigScreen(
         Button(
             onClick = {
                 // TODO Check if all inputs are viable
-                onSave(
+                onSaveTicket(
                     Ticket(
                         title = title,
                         content = content,
@@ -122,6 +133,7 @@ private fun TicketConfigPreview() {
             categoryList = mockCategories,
         ),
         onQuit = {},
-        onSave = {},
+        onSaveTicket = {},
+        onSaveCategory = {},
     )
 }

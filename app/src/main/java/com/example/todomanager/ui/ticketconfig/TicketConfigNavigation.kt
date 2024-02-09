@@ -20,8 +20,8 @@ fun NavGraphBuilder.ticketConfigScreen(
         TicketConfigScreen(
             uiState = uiState,
             onQuit = navigateUp,
-            onSave = viewModel::onSave,
-
+            onSaveTicket = viewModel::onSaveTicket,
+            onSaveCategory = viewModel::onSaveCategory,
         )
     }
 }

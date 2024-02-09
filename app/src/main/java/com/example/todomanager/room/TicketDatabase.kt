@@ -7,7 +7,7 @@ import com.example.todomanager.data.LocalDateConverter
 
 @Database(
     entities = [TicketDTO::class, CategoryDTO::class],
-    version = 3,
+    version = 4,
     exportSchema = false,
 )
 @TypeConverters(

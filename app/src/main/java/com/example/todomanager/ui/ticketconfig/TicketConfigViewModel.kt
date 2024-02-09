@@ -22,9 +22,15 @@ class TicketConfigViewModel(
         TicketConfigState(categoryList = it)
     }.stateIn(viewModelScope, SharingStarted.Eagerly, TicketConfigState())
 
-    fun onSave(ticket: Ticket) {
+    fun onSaveTicket(ticket: Ticket) {
         viewModelScope.launch {
             ticketRepo.insertTicket(ticket)
+        }
+    }
+
+    fun onSaveCategory(category: Category) {
+        viewModelScope.launch {
+            ticketRepo.insertCategory(category)
         }
     }
 }

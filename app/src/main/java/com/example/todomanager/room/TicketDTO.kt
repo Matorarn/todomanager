@@ -3,6 +3,7 @@ package com.example.todomanager.room
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.example.todomanager.data.category.CategoryColors
 import java.time.LocalDate
 
 @Entity(
@@ -35,5 +36,5 @@ data class CategoryDTO(
     val id: Int = 0,
     val title: String,
     val emoji: String,
-    val color: String,
+    val color: CategoryColors,
 )

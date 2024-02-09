@@ -11,19 +11,22 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface TicketDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(ticket: TicketDTO)
+    suspend fun insertTicket(ticket: TicketDTO)
 
     @Update
-    suspend fun update(ticket: TicketDTO)
+    suspend fun updateTicket(ticket: TicketDTO)
 
     @Delete
-    suspend fun delete(ticket: TicketDTO)
+    suspend fun deleteTicket(ticket: TicketDTO)
 
     @Query("SELECT * from tickets WHERE id = :id")
     fun getTicket(id: Int): Flow<TicketDTO>
 
     @Query("SELECT * from categories")
     fun getCategories(): Flow<List<CategoryDTO>>
+
+    @Insert
+    suspend fun insertCategory(category: CategoryDTO)
 
     @Query("SELECT * FROM tickets WHERE currentRow = 'Backlog' ORDER BY title ASC")
     fun getBacklogTickets(): Flow<List<TicketDTO>>

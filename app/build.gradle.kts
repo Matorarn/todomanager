@@ -51,8 +51,10 @@ android {
 }
 
 dependencies {
+    //Emoji Picker
+    implementation("androidx.emoji2:emoji2-emojipicker:1.4.0")
     //Navigation
-    implementation("androidx.navigation:navigation-compose:2.7.6")
+    implementation("androidx.navigation:navigation-compose:2.7.7")
 
     //Room
     implementation("androidx.room:room-runtime:2.6.1")

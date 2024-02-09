@@ -6,8 +6,6 @@ import com.example.todomanager.room.CategoryDTO
 import com.example.todomanager.room.TicketDTO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 internal fun TicketDTO.toEntity() = Ticket(
     id = id,
@@ -28,7 +26,7 @@ internal fun CategoryDTO.toEntity() = Category(
     id = id,
     title = title,
     emoji = emoji,
-    color = color.toInt(),
+    color = color,
 )
 
 internal fun Ticket.toDto() = TicketDTO(
@@ -49,7 +47,7 @@ internal fun Category.toDto() = CategoryDTO(
     id = id,
     title = title,
     emoji = emoji,
-    color = color.toString(),
+    color = color,
 )
 
 internal fun Flow<List<TicketDTO>>.toTicketFlow(): Flow<List<Ticket>> =

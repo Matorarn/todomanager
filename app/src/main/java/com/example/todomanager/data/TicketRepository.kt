@@ -39,15 +39,19 @@ class TicketRepository(
         return categories.map { list -> list.map { ticket -> ticket.toEntity() } }
     }
 
+    suspend fun insertCategory(category: Category) {
+        ticketDAO.insertCategory(category.toDto())
+    }
+
     suspend fun insertTicket(ticket: Ticket) {
-        ticketDAO.insert(ticket.toDto())
+        ticketDAO.insertTicket(ticket.toDto())
     }
 
     suspend fun deleteTicket(ticket: Ticket) {
-        ticketDAO.delete(ticket.toDto())
+        ticketDAO.deleteTicket(ticket.toDto())
     }
 
     suspend fun updateTicket(ticket: Ticket) {
-        ticketDAO.update(ticket.toDto())
+        ticketDAO.updateTicket(ticket.toDto())
     }
 }
