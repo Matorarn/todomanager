@@ -21,7 +21,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -37,14 +36,14 @@ fun DueDatePickerTextField(
     Column(
         modifier = modifier
             .background(
-                color = MaterialTheme.colorScheme.secondary,
+                color = MaterialTheme.colorScheme.surface,
                 shape = RoundedCornerShape(16.dp),
             )
             .padding(8.dp),
     ) {
         Text(
             text = "Deadline",
-            color = MaterialTheme.colorScheme.onSecondary,
+            color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.titleMedium,
         )
         Spacer(modifier = Modifier.height(8.dp))
@@ -53,7 +52,7 @@ fun DueDatePickerTextField(
                 .border(
                     BorderStroke(
                         width = Dp.Hairline,
-                        color = Color.Black,
+                        color = MaterialTheme.colorScheme.onSurface,
                     ),
                     shape = RoundedCornerShape(16.dp),
                 )
@@ -62,12 +61,16 @@ fun DueDatePickerTextField(
                 .padding(4.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Icon(imageVector = Icons.Default.DateRange, contentDescription = null)
+            Icon(
+                imageVector = Icons.Default.DateRange,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurface,
+            )
             Spacer(modifier = Modifier.width(8.dp))
             // TODO Add Date Formatter
             Text(
                 text = dueDate.toString(),
-                color = MaterialTheme.colorScheme.onSecondary,
+                color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.labelLarge,
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -75,6 +78,7 @@ fun DueDatePickerTextField(
                 modifier = Modifier.clickable(onClick = onDeleteDueDateValue),
                 imageVector = Icons.Default.Delete,
                 contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurface,
             )
         }
     }

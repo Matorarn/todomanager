@@ -2,8 +2,13 @@ package com.example.todomanager.ui.ticketconfig
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -76,6 +81,7 @@ fun TicketConfigScreen(
 
     Column(
         modifier = Modifier
+            .fillMaxSize()
             .padding(horizontal = 8.dp, vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
@@ -102,26 +108,41 @@ fun TicketConfigScreen(
             row = currentRow,
             onShowRowPickerDialog = { showRowPickerDialog = true },
         )
-        Button(
-            onClick = {
-                // TODO Check if all inputs are viable
-                onSaveTicket(
-                    Ticket(
-                        title = title,
-                        content = content,
-                        categoryId = category.id,
-                        currentRow = currentRow,
-                        dueDate = dueDate,
-                        doneDate = null,
-                    ),
-                )
-                onQuit()
-            },
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
-            Text(text = "Eingaben speichern")
-        }
-        Button(onClick = onQuit) {
-            Text(text = "Abbrechen")
+            Button(
+                onClick = onQuit,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                ),
+            ) {
+                Text(text = "Abbrechen")
+            }
+            Button(
+                onClick = {
+                    // TODO Check if all inputs are viable
+                    onSaveTicket(
+                        Ticket(
+                            title = title,
+                            content = content,
+                            categoryId = category.id,
+                            currentRow = currentRow,
+                            dueDate = dueDate,
+                            doneDate = null,
+                        ),
+                    )
+                    onQuit()
+                },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary,
+                ),
+            ) {
+                Text(text = "Eingaben speichern")
+            }
         }
     }
 }
