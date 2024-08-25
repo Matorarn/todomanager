@@ -2,6 +2,7 @@ package com.example.todomanager.ui.components
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Check
@@ -52,7 +53,7 @@ fun MainScaffold(
                 NavigationBarItem(
                     selected = selectedState == State.BACKLOG,
                     onClick = { onSelect(State.BACKLOG) },
-                    icon = { Icon(Icons.Default.List, contentDescription = null) },
+                    icon = { Icon(Icons.AutoMirrored.Filled.List, contentDescription = null) },
                 )
                 NavigationBarItem(
                     selected = selectedState == State.TODO,

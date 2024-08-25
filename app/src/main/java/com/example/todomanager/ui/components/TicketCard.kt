@@ -9,9 +9,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -53,7 +53,7 @@ fun TicketCard(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
-            Divider(thickness = 1.dp)
+            HorizontalDivider(thickness = 1.dp)
             Row(
                 modifier = Modifier
                     .fillMaxWidth(),
