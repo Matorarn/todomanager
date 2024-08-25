@@ -23,7 +23,7 @@ fun ContentTextField(
         onValueChange = onValueChange,
         label = { Text(text = "Beschreibung") },
         trailingIcon = (@Composable { ClearTextButton(onClick = { onValueChange("") }) }),
-        singleLine = false,
+        singleLine = true,
         shape = CircleShape,
         isError = false,
     )

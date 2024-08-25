@@ -4,6 +4,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
@@ -19,7 +20,14 @@ fun DueDatePickerDialog(
     onShow: Boolean,
     onDismiss: () -> Unit,
 ) {
-    val datePickerState = rememberDatePickerState()
+    val datePickerState = rememberDatePickerState(
+        initialSelectedDateMillis = System.currentTimeMillis(),
+        selectableDates = object : SelectableDates {
+            override fun isSelectableDate(utcTimeMillis: Long): Boolean {
+                return utcTimeMillis > System.currentTimeMillis() - 86400000
+            }
+        },
+    )
     val dueDate = datePickerState.selectedDateMillis?.let { convertMillisToDate(it) }
 
     if (onShow) {

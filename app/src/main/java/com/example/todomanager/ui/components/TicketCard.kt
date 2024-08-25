@@ -10,7 +10,6 @@ import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -25,8 +24,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.todomanager.data.ticket.Ticket
 import com.example.todomanager.data.ticket.mockTicket
+import java.time.format.DateTimeFormatter
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TicketCard(
     ticket: Ticket,
@@ -71,7 +70,8 @@ fun TicketCard(
                         modifier = Modifier
                             // .padding(8.dp)
                             .align(Alignment.CenterHorizontally),
-                        text = ticket.dueDate.toString(),
+                        text = ticket.dueDate?.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+                            ?: "",
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.titleLarge,
                         maxLines = 1,

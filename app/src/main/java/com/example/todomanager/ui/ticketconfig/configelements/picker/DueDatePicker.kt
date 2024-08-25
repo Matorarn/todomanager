@@ -25,6 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun DueDatePickerTextField(
@@ -69,7 +70,7 @@ fun DueDatePickerTextField(
             Spacer(modifier = Modifier.width(8.dp))
             // TODO Add Date Formatter
             Text(
-                text = dueDate.toString(),
+                text = dueDate?.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")) ?: "",
                 color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.labelLarge,
             )
