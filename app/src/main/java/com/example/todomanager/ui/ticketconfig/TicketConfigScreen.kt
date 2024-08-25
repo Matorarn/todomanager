@@ -26,7 +26,6 @@ import com.example.todomanager.data.ticket.Ticket
 import com.example.todomanager.ui.ticketconfig.configelements.category.CategorySwitch
 import com.example.todomanager.ui.ticketconfig.configelements.dialogs.addcategory.AddCategoryDialog
 import com.example.todomanager.ui.ticketconfig.configelements.dialogs.duedate.DueDatePickerDialog
-import com.example.todomanager.ui.ticketconfig.configelements.dialogs.row.RowPickerDialog
 import com.example.todomanager.ui.ticketconfig.configelements.picker.DueDatePickerTextField
 import com.example.todomanager.ui.ticketconfig.configelements.picker.RowPicker
 import com.example.todomanager.ui.ticketconfig.configelements.textfields.ContentTextField
@@ -54,15 +53,6 @@ fun TicketConfigScreen(
     }
     var dueDate: LocalDate? by rememberSaveable { mutableStateOf(null) }
     var currentRow by rememberSaveable { mutableStateOf(Ticket.Row.BACKLOG) }
-
-    var showRowPickerDialog by remember { mutableStateOf(false) }
-    if (showRowPickerDialog) {
-        RowPickerDialog(
-            selectedRow = currentRow,
-            onSelectRow = { currentRow = it },
-            onDismiss = { showRowPickerDialog = false },
-        )
-    }
 
     var showDueDatePicker by remember { mutableStateOf(false) }
     DueDatePickerDialog(
@@ -105,8 +95,8 @@ fun TicketConfigScreen(
             onDeleteDueDateValue = { dueDate = null },
         )
         RowPicker(
-            row = currentRow,
-            onShowRowPickerDialog = { showRowPickerDialog = true },
+            selectedRow = currentRow,
+            onSelectRow = { currentRow = it },
         )
         Row(
             modifier = Modifier.fillMaxWidth(),
