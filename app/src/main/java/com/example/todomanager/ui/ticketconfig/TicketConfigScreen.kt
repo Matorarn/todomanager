@@ -26,8 +26,8 @@ import com.example.todomanager.data.ticket.Ticket
 import com.example.todomanager.ui.ticketconfig.configelements.category.CategorySwitch
 import com.example.todomanager.ui.ticketconfig.configelements.dialogs.addcategory.AddCategoryDialog
 import com.example.todomanager.ui.ticketconfig.configelements.dialogs.duedate.DueDatePickerDialog
-import com.example.todomanager.ui.ticketconfig.configelements.picker.DueDatePickerTextField
 import com.example.todomanager.ui.ticketconfig.configelements.picker.RowPicker
+import com.example.todomanager.ui.ticketconfig.configelements.picker.dueDateInteractionField.DueDateInteractionField
 import com.example.todomanager.ui.ticketconfig.configelements.textfields.ContentTextField
 import com.example.todomanager.ui.ticketconfig.configelements.textfields.TitleTextField
 import java.time.LocalDate
@@ -89,7 +89,7 @@ fun TicketConfigScreen(
             onSelectCategory = { category = it },
             showAddCategoryDialog = { showAddCategoryDialog = true },
         )
-        DueDatePickerTextField(
+        DueDateInteractionField(
             dueDate = dueDate,
             onShowDatePickerDialog = { showDueDatePicker = true },
             onDeleteDueDateValue = { dueDate = null },
